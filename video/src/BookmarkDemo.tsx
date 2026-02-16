@@ -45,36 +45,6 @@ const TypewriterText = ({
   );
 };
 
-const FadeIn = ({
-  children,
-  delay = 0,
-  style = {},
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  style?: React.CSSProperties;
-}) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-
-  const scale = spring({
-    frame: frame - delay,
-    fps,
-    config: { damping: 15, stiffness: 200 },
-  });
-
-  const opacity = interpolate(frame - delay, [0, 10], [0, 1], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
-
-  return (
-    <div style={{ transform: `scale(${scale})`, opacity, ...style }}>
-      {children}
-    </div>
-  );
-};
-
 const SlideIn = ({
   children,
   delay = 0,
@@ -134,10 +104,12 @@ const ClassLabel = ({
   label,
   color,
   delay,
+  active = false,
 }: {
   label: string;
   color: string;
   delay: number;
+  active?: boolean;
 }) => {
   return (
     <SlideIn delay={delay} from="left">
@@ -147,8 +119,8 @@ const ClassLabel = ({
           alignItems: "center",
           gap: 12,
           padding: "12px 24px",
-          border: `1px solid ${color}40`,
-          background: `${color}10`,
+          border: `${active ? 2 : 1}px solid ${active ? color : `${color}40`}`,
+          background: active ? `${color}20` : `${color}08`,
         }}
       >
         <div
@@ -157,6 +129,7 @@ const ClassLabel = ({
             height: 8,
             borderRadius: "50%",
             background: color,
+            boxShadow: active ? `0 0 12px ${color}` : "none",
           }}
         />
         <span style={{ fontFamily: MONO, fontSize: 28, color, fontWeight: 600 }}>
@@ -238,11 +211,10 @@ const CaptureScene = () => {
         justifyContent: "center",
       }}
     >
-      {/* mock tweet */}
       <div
         style={{
           opacity: tweetOpacity,
-          width: 700,
+          width: 720,
           border: "1px solid rgba(255,255,255,0.1)",
           padding: 32,
           background: "rgba(255,255,255,0.03)",
@@ -257,20 +229,17 @@ const CaptureScene = () => {
               background: "rgba(255,255,255,0.1)",
             }}
           />
-          <div>
-            <div style={{ fontFamily: MONO, fontSize: 16, color: "white" }}>
-              @soliditydev
-            </div>
+          <div style={{ fontFamily: MONO, fontSize: 16, color: "white" }}>
+            @oliverhenry
           </div>
         </div>
-        <div style={{ fontFamily: MONO, fontSize: 20, color: "rgba(255,255,255,0.8)", lineHeight: 1.5 }}>
-          ERC-1155 batch transfers are criminally underused. replaced 47 individual transfer() calls with one safeBatchTransferFrom(). 40% gas savings.
+        <div style={{ fontFamily: MONO, fontSize: 19, color: "rgba(255,255,255,0.8)", lineHeight: 1.5 }}>
+          how my OpenClaw agent, Larry, got millions of TikTok views in one week. within 5 days he crossed 500,000 views. one post hit 234,000.
         </div>
         <div style={{ marginTop: 16, fontFamily: MONO, fontSize: 14, color: BLUE }}>
-          medium.com/@soliditydev/erc-1155-bat...
+          x.com/i/article/2021875898064990208
         </div>
 
-        {/* bookmark icon area */}
         <div
           style={{
             display: "flex",
@@ -318,27 +287,15 @@ const ClassifyScene = () => {
       </SlideIn>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <ClassLabel label="implement" color={BLUE} delay={15} />
+        <ClassLabel label="implement" color={BLUE} delay={15} active />
         <ClassLabel label="remember" color={PURPLE} delay={30} />
         <ClassLabel label="act" color={RED} delay={45} />
         <ClassLabel label="remind" color={AMBER} delay={60} />
       </div>
 
       <SlideIn delay={80}>
-        <div
-          style={{
-            marginTop: 32,
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            padding: "16px 32px",
-            border: `2px solid ${BLUE}`,
-            background: `${BLUE}15`,
-          }}
-        >
-          <span style={{ fontFamily: MONO, fontSize: 20, color: BLUE }}>
-            {"-> implement"}
-          </span>
+        <div style={{ marginTop: 20, fontFamily: MONO, fontSize: 16, color: DIM, maxWidth: 500, textAlign: "center", lineHeight: 1.6 }}>
+          step-by-step guide to deploying an AI agent that automates TikTok content creation on consumer hardware
         </div>
       </SlideIn>
     </AbsoluteFill>
@@ -347,8 +304,6 @@ const ClassifyScene = () => {
 
 // scene 4: learn (9-13s, frames 270-390)
 const LearnScene = () => {
-  const frame = useCurrentFrame();
-
   return (
     <AbsoluteFill
       style={{
@@ -362,7 +317,7 @@ const LearnScene = () => {
     >
       <SlideIn delay={0}>
         <div style={{ fontFamily: MONO, fontSize: 18, color: DIM, letterSpacing: 2 }}>
-          READING ARTICLE...
+          EXTRACTING KNOWLEDGE
         </div>
       </SlideIn>
 
@@ -380,18 +335,18 @@ const LearnScene = () => {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <SlideIn delay={40} from="left">
-              <div style={{ fontFamily: MONO, fontSize: 18, color: "rgba(255,255,255,0.85)" }}>
-                - "ERC-1155 batching saves 40% gas vs individual transfers"
+              <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.85)" }}>
+                {"- \"OpenClaw agent runs on consumer hardware (old gaming PC)\""}
               </div>
             </SlideIn>
             <SlideIn delay={55} from="left">
-              <div style={{ fontFamily: MONO, fontSize: 18, color: "rgba(255,255,255,0.85)" }}>
-                - "safeBatchTransferFrom() accepts arrays of ids + amounts"
+              <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.85)" }}>
+                {"- \"500k+ views in 5 days with automated posting strategy\""}
               </div>
             </SlideIn>
             <SlideIn delay={70} from="left">
-              <div style={{ fontFamily: MONO, fontSize: 18, color: "rgba(255,255,255,0.85)" }}>
-                - "batch up to 100 transfers in a single transaction"
+              <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.85)" }}>
+                {"- \"single post hit 234k views via content-discovery\""}
               </div>
             </SlideIn>
           </div>
@@ -400,22 +355,27 @@ const LearnScene = () => {
             action_items:
           </div>
           <SlideIn delay={90} from="left">
-            <div style={{ fontFamily: MONO, fontSize: 18, color: "rgba(255,255,255,0.85)" }}>
-              - "refactor token contract to use batch transfers"
+            <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.85)" }}>
+              {"- \"set up OpenClaw agent on available hardware\""}
+            </div>
+          </SlideIn>
+          <SlideIn delay={100} from="left">
+            <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.85)", marginTop: 8 }}>
+              {"- \"implement Larry's posting strategy and content framework\""}
             </div>
           </SlideIn>
 
           <div style={{ fontFamily: MONO, fontSize: 14, color: PURPLE, marginTop: 24, marginBottom: 12 }}>
             topics:
           </div>
-          <SlideIn delay={105} from="left">
-            <div style={{ display: "flex", gap: 8 }}>
-              {["solidity", "gas-optimization", "erc-1155"].map((tag, i) => (
+          <SlideIn delay={110} from="left">
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {["ai-agents", "openclaw", "tiktok-growth", "automation", "content-creation"].map((tag) => (
                 <span
                   key={tag}
                   style={{
                     fontFamily: MONO,
-                    fontSize: 14,
+                    fontSize: 13,
                     color: PURPLE,
                     padding: "4px 12px",
                     border: `1px solid ${PURPLE}40`,
@@ -435,8 +395,6 @@ const LearnScene = () => {
 
 // scene 5: search (13-16s, frames 390-480)
 const SearchScene = () => {
-  const frame = useCurrentFrame();
-
   return (
     <AbsoluteFill
       style={{
@@ -445,10 +403,9 @@ const SearchScene = () => {
         alignItems: "center",
         justifyContent: "center",
         gap: 24,
-        padding: "0 300px",
+        padding: "0 280px",
       }}
     >
-      {/* search input */}
       <div
         style={{
           width: "100%",
@@ -459,30 +416,47 @@ const SearchScene = () => {
           gap: 12,
         }}
       >
-        <span style={{ fontFamily: MONO, fontSize: 18, color: DIM }}>search:</span>
-        <TypewriterText text="gas optimization" delay={5} speed={3} color="white" fontSize={22} />
+        <span style={{ fontFamily: MONO, fontSize: 18, color: DIM }}>{"search:"}</span>
+        <TypewriterText text="agent ships code overnight" delay={5} speed={3} color="white" fontSize={22} />
       </div>
 
-      {/* result */}
-      <SlideIn delay={45} style={{ width: "100%" }}>
+      <SlideIn delay={50} style={{ width: "100%" }}>
         <div
           style={{
             width: "100%",
             border: `1px solid ${GREEN}30`,
             background: `${GREEN}05`,
             padding: 24,
+            marginBottom: 12,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
             <PulsingDot color={GREEN} size={6} />
-            <span style={{ fontFamily: MONO, fontSize: 14, color: GREEN }}>0.94 match</span>
+            <span style={{ fontFamily: MONO, fontSize: 14, color: GREEN }}>0.96 match</span>
             <span style={{ fontFamily: MONO, fontSize: 14, color: BLUE, marginLeft: 12 }}>implement</span>
           </div>
-          <div style={{ fontFamily: MONO, fontSize: 18, color: "rgba(255,255,255,0.85)" }}>
-            @soliditydev: ERC-1155 batch transfers save 40% gas
+          <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.85)" }}>
+            @ryancarson: autonomous agent loop that learns, compounds knowledge, and ships prioritized tasks nightly
           </div>
-          <div style={{ fontFamily: MONO, fontSize: 14, color: DIM, marginTop: 8 }}>
-            found via article content, not tweet text
+        </div>
+      </SlideIn>
+
+      <SlideIn delay={65} style={{ width: "100%" }}>
+        <div
+          style={{
+            width: "100%",
+            border: `1px solid rgba(255,255,255,0.08)`,
+            background: `rgba(255,255,255,0.02)`,
+            padding: 24,
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+            <PulsingDot color={DIM} size={6} />
+            <span style={{ fontFamily: MONO, fontSize: 14, color: DIM }}>0.82 match</span>
+            <span style={{ fontFamily: MONO, fontSize: 14, color: BLUE, marginLeft: 12 }}>implement</span>
+          </div>
+          <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.6)" }}>
+            @oliverhenry: OpenClaw agent got 500k+ TikTok views in 5 days with automated content creation
           </div>
         </div>
       </SlideIn>
@@ -503,7 +477,7 @@ const NotifyScene = () => {
       <SlideIn delay={0} from="right">
         <div
           style={{
-            width: 500,
+            width: 520,
             border: "1px solid rgba(255,255,255,0.1)",
             background: "rgba(255,255,255,0.03)",
             padding: 28,
@@ -526,10 +500,11 @@ const NotifyScene = () => {
             <span style={{ fontFamily: MONO, fontSize: 14, color: DIM }}>telegram</span>
           </div>
 
-          <div style={{ fontFamily: MONO, fontSize: 16, color: "rgba(255,255,255,0.9)", lineHeight: 1.6 }}>
-            <div style={{ color: BLUE, marginBottom: 8 }}>implement from @soliditydev:</div>
-            <div>ERC-1155 batch transfers save 40% gas. replace individual transfer() calls with safeBatchTransferFrom().</div>
-            <div style={{ color: GREEN, marginTop: 12 }}>key insight: batch up to 100 transfers in a single tx</div>
+          <div style={{ fontFamily: MONO, fontSize: 15, color: "rgba(255,255,255,0.9)", lineHeight: 1.7 }}>
+            <div style={{ color: BLUE, marginBottom: 8 }}>implement from @oliverhenry:</div>
+            <div>step-by-step guide to deploying an OpenClaw AI agent that achieved 500k+ TikTok views in 5 days on consumer hardware.</div>
+            <div style={{ color: GREEN, marginTop: 12 }}>key insight: agent runs on old gaming PC, automates content creation + posting</div>
+            <div style={{ color: AMBER, marginTop: 8 }}>next step: set up OpenClaw agent on available hardware</div>
           </div>
         </div>
       </SlideIn>
@@ -578,9 +553,12 @@ const CTAScene = () => {
         </span>
       </div>
 
-      <div style={{ opacity: urlOpacity }}>
+      <div style={{ opacity: urlOpacity, display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
         <span style={{ fontFamily: MONO, fontSize: 24, color: DIM }}>
           github.com/heettike/bookmark-agent
+        </span>
+        <span style={{ fontFamily: MONO, fontSize: 16, color: GREEN }}>
+          bookmark-agent.pages.dev
         </span>
       </div>
     </AbsoluteFill>
@@ -593,7 +571,6 @@ export const BookmarkDemo = () => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
-  // fade out at end
   const fadeOut = interpolate(
     frame,
     [durationInFrames - 15, durationInFrames],
@@ -626,37 +603,30 @@ export const BookmarkDemo = () => {
         }}
       />
 
-      {/* scene 1: problem (0-2s) */}
       <Sequence from={0} durationInFrames={60}>
         <ProblemScene />
       </Sequence>
 
-      {/* scene 2: capture (2-5s) */}
       <Sequence from={60} durationInFrames={90}>
         <CaptureScene />
       </Sequence>
 
-      {/* scene 3: classify (5-9s) */}
       <Sequence from={150} durationInFrames={120}>
         <ClassifyScene />
       </Sequence>
 
-      {/* scene 4: learn (9-13s) */}
       <Sequence from={270} durationInFrames={120}>
         <LearnScene />
       </Sequence>
 
-      {/* scene 5: search (13-16s) */}
       <Sequence from={390} durationInFrames={90}>
         <SearchScene />
       </Sequence>
 
-      {/* scene 6: notify (16-18s) */}
       <Sequence from={480} durationInFrames={60}>
         <NotifyScene />
       </Sequence>
 
-      {/* scene 7: CTA (18-20s) */}
       <Sequence from={540} durationInFrames={60}>
         <CTAScene />
       </Sequence>
