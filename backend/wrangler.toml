@@ -1,0 +1,23 @@
+name = "bookmark-agent"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "bookmark-agent"
+database_id = "YOUR_DATABASE_ID"
+
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "bookmark-embeddings"
+
+[ai]
+binding = "AI"
+
+[vars]
+ENVIRONMENT = "production"
+
+# secrets (set via wrangler secret put):
+# ANTHROPIC_API_KEY
+# AUTH_SECRET (for signing API keys)

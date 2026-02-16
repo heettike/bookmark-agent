@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 320px; min-height: 200px; max-height: 500px;
+      background: #0a0a0a; color: #ccc;
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 11px;
+    }
+    .header {
+      padding: 14px 16px 10px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .brand { color: #666; font-size: 10px; letter-spacing: 0.5px; }
+    .settings-link {
+      color: #333; font-size: 10px; cursor: pointer;
+      background: none; border: none; font-family: inherit;
+      text-decoration: none;
+    }
+    .settings-link:hover { color: #666; }
+
+    .status {
+      padding: 8px 16px;
+      display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+    }
+    .status-dot.ok { background: #4ade80; }
+    .status-dot.err { background: #f87171; }
+    .status-dot.pending { background: #555; }
+    .status-text { color: #555; font-size: 10px; }
+
+    .bookmarks { padding: 8px 0; overflow-y: auto; max-height: 380px; }
+    .bookmark-item {
+      padding: 8px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+      cursor: default;
+    }
+    .bookmark-item:hover { background: rgba(255,255,255,0.02); }
+    .bm-author { color: #555; font-size: 9px; }
+    .bm-text {
+      color: #999; font-size: 10px; line-height: 1.4;
+      margin-top: 2px;
+      display: -webkit-box; -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .bm-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 4px;
+    }
+    .bm-class {
+      font-size: 9px; padding: 1px 6px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .bm-class.implement { color: #60a5fa; border-color: rgba(96,165,250,0.2); }
+    .bm-class.remember { color: #a78bfa; border-color: rgba(167,139,250,0.2); }
+    .bm-class.act { color: #f87171; border-color: rgba(248,113,113,0.2); }
+    .bm-class.remind { color: #fbbf24; border-color: rgba(251,191,36,0.2); }
+    .bm-time { color: #333; font-size: 9px; }
+
+    .empty {
+      padding: 40px 16px; text-align: center; color: #333;
+    }
+    .empty-hint { font-size: 9px; color: #222; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="brand">bookmark agent</span>
+    <a class="settings-link" id="openSettings">settings</a>
+  </div>
+  <div class="status" id="status">
+    <span class="status-dot pending" id="statusDot"></span>
+    <span class="status-text" id="statusText">checking...</span>
+  </div>
+  <div class="bookmarks" id="bookmarks">
+    <div class="empty">
+      <div>no bookmarks yet</div>
+      <div class="empty-hint">bookmark a tweet on x.com to get started</div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

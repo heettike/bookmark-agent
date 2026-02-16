@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bookmark agent</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="dot dot-green"></span>
+        <span>active</span>
+      </div>
+      <h1>your bookmarks should work for you.</h1>
+      <p class="hero-sub">not just sit in a list.</p>
+      <div class="video-wrap">
+        <video src="demo.mp4" autoplay loop muted playsinline></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- problem -->
+  <section class="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="stat">
+          <span class="stat-num">847</span>
+          <span class="stat-label">bookmarks saved</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num red">3</span>
+          <span class="stat-label">you actually remember</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- how it works -->
+  <section class="how">
+    <div class="container">
+      <h2>how it works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-label">bookmark</div>
+          <p>click bookmark on x.com like you normally do. extension captures the tweet, links, and thread context silently.</p>
+        </div>
+        <div class="step-arrow">-></div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-label">classify</div>
+          <div class="labels">
+            <span class="label label-blue">implement</span>
+            <span class="label label-purple">remember</span>
+            <span class="label label-red">act</span>
+            <span class="label label-amber">remind</span>
+          </div>
+        </div>
+        <div class="step-arrow">-></div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-label">learn</div>
+          <p>reads the linked article. extracts key insights, action items, and topics. embeds everything for semantic search.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- what it extracts -->
+  <section class="extract">
+    <div class="container">
+      <h2>what it extracts</h2>
+      <div class="extract-demo">
+        <div class="extract-input">
+          <div class="extract-header">
+            <span class="dot dot-dim"></span>
+            <span>tweet</span>
+          </div>
+          <div class="extract-body">
+            <p class="author">@soliditydev</p>
+            <p>ERC-1155 batch transfers are criminally underused. replaced 47 individual transfer() calls with one safeBatchTransferFrom(). 40% gas savings.</p>
+            <p class="link">medium.com/@soliditydev/erc-1155-bat...</p>
+          </div>
+        </div>
+        <div class="extract-arrow">-></div>
+        <div class="extract-output">
+          <div class="extract-header">
+            <span class="dot dot-green"></span>
+            <span>extracted knowledge</span>
+          </div>
+          <div class="extract-body">
+            <div class="field">
+              <span class="field-label green">key_insights:</span>
+              <p>- "ERC-1155 batching saves 40% gas vs individual transfers"</p>
+              <p>- "safeBatchTransferFrom() accepts arrays of ids + amounts"</p>
+              <p>- "batch up to 100 transfers in a single transaction"</p>
+            </div>
+            <div class="field">
+              <span class="field-label amber">action_items:</span>
+              <p>- "refactor token contract to use batch transfers"</p>
+            </div>
+            <div class="field">
+              <span class="field-label purple">topics:</span>
+              <div class="tags">
+                <span class="tag tag-purple">solidity</span>
+                <span class="tag tag-purple">gas-optimization</span>
+                <span class="tag tag-purple">erc-1155</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- install -->
+  <section class="install">
+    <div class="container">
+      <h2>get started</h2>
+      <div class="install-options">
+        <a href="#" class="btn btn-primary">
+          <span class="dot dot-green"></span>
+          install chrome extension
+        </a>
+        <a href="https://github.com/heettike/bookmark-agent" class="btn btn-secondary">
+          deploy your own backend
+        </a>
+      </div>
+      <p class="cost">~$0.10/user/month. no twitter api needed.</p>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+    <div class="container footer-inner">
+      <span>built by <a href="https://x.com/heettike">tk</a></span>
+      <a href="https://github.com/heettike/bookmark-agent">github</a>
+    </div>
+  </footer>
+
+</body>
+</html>

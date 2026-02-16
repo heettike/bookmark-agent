@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>bookmark agent - settings</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0a0a; color: #ccc;
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 12px;
+      min-height: 100vh;
+      display: flex; justify-content: center;
+      padding: 60px 20px;
+    }
+    .container { width: 400px; }
+    .brand { color: #666; font-size: 10px; letter-spacing: 0.5px; margin-bottom: 32px; }
+
+    .section { margin-bottom: 28px; }
+    .section-title { color: #555; font-size: 10px; letter-spacing: 0.5px; margin-bottom: 10px; }
+
+    .field { margin-bottom: 14px; }
+    label { color: #666; font-size: 10px; display: block; margin-bottom: 4px; }
+    input[type="text"], input[type="password"] {
+      width: 100%; background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #ccc; font-family: inherit; font-size: 11px;
+      padding: 8px 10px; outline: none;
+    }
+    input:focus { border-color: rgba(255,255,255,0.15); }
+    input::placeholder { color: #222; }
+
+    .actions { display: flex; gap: 10px; align-items: center; }
+    button {
+      padding: 8px 20px; font-size: 11px; font-family: inherit;
+      border: none; cursor: pointer;
+    }
+    .btn-save { background: #fff; color: #0a0a0a; }
+    .btn-save:hover { background: #e5e5e5; }
+    .btn-test {
+      background: transparent; color: #555;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .btn-test:hover { border-color: rgba(255,255,255,0.15); color: #999; }
+
+    .status { margin-top: 10px; font-size: 10px; }
+    .status.ok { color: #4ade80; }
+    .status.err { color: #f87171; }
+
+    .hint { color: #333; font-size: 9px; margin-top: 6px; line-height: 1.5; }
+
+    .api-key-display {
+      margin-top: 20px; padding: 14px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .api-key-label { color: #444; font-size: 9px; margin-bottom: 4px; }
+    .api-key-value {
+      color: #888; font-size: 10px; word-break: break-all;
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">bookmark agent / settings</div>
+
+    <div class="section">
+      <div class="section-title">connection</div>
+      <div class="field">
+        <label>api url</label>
+        <input type="text" id="apiUrl" placeholder="https://bookmark-agent.your-domain.workers.dev">
+      </div>
+      <div class="field">
+        <label>api key</label>
+        <input type="password" id="apiKey" placeholder="your api key">
+      </div>
+      <div class="actions">
+        <button class="btn-save" id="save">save</button>
+        <button class="btn-test" id="test">test connection</button>
+      </div>
+      <div class="status" id="status"></div>
+      <div class="hint">
+        get your api key from the bookmark agent dashboard after signing up.
+      </div>
+    </div>
+  </div>
+  <script src="settings.js"></script>
+</body>
+</html>
