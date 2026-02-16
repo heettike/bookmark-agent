@@ -6,7 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "bookmark-agent"
-database_id = "YOUR_DATABASE_ID"
+database_id = "1a1dbf04-5b23-44ff-afa2-674f934fa573"
 
 [[vectorize]]
 binding = "VECTORIZE"

@@ -7,6 +7,9 @@ type Bindings = {
 
 // simple API key auth
 export async function authMiddleware(c: Context<{ Bindings: Bindings }>, next: Next) {
+  // skip auth for CORS preflight
+  if (c.req.method === "OPTIONS") return next();
+
   const authHeader = c.req.header("Authorization");
   if (!authHeader?.startsWith("Bearer ")) {
     return c.json({ ok: false, error: "missing api key" }, 401);

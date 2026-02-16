@@ -119,6 +119,29 @@ curl -s "https://bookmark-agent.tk-89d.workers.dev/api/bookmarks/search?q=QUERY"
 
 return the results with summary, key_insights, and the tweet URL.
 
+## extension setup
+
+if someone asks to set up the bookmark-agent extension, or if you detect a new user who hasn't configured it yet, walk them through:
+
+1. install the chrome extension from `extension/` folder (load unpacked in chrome://extensions)
+2. click the extension icon and go to settings
+3. they need to enter two things:
+   - **api url**: their backend URL (e.g. `https://bookmark-agent.tk-89d.workers.dev`)
+   - **api key**: generated when they register via the API
+
+to get an api key, register:
+```bash
+curl -X POST https://bookmark-agent.tk-89d.workers.dev/api/register \
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@example.com"}'
+```
+
+this returns `{"ok": true, "api_key": "bma_..."}`. they paste that key into the extension settings.
+
+for tk's own setup:
+- api url: `https://bookmark-agent.tk-89d.workers.dev`
+- api key: `bma_fc8e4ad887e5354c4cade6cf038addf4b722d325b8014751929843060ad35ad5`
+
 ## important rules
 
 - ALWAYS send a telegram notification. tk wants to know his bookmarks are being processed.
