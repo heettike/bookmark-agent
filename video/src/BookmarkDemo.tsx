@@ -5,6 +5,8 @@ import {
   spring,
   Sequence,
   AbsoluteFill,
+  staticFile,
+  Img,
 } from "remotion";
 
 const DARK = "#0a0a0a";
@@ -214,54 +216,33 @@ const CaptureScene = () => {
       <div
         style={{
           opacity: tweetOpacity,
-          width: 720,
-          border: "1px solid rgba(255,255,255,0.1)",
-          padding: 32,
-          background: "rgba(255,255,255,0.03)",
+          width: 620,
+          border: "1px solid rgba(255,255,255,0.15)",
+          background: "white",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-          <div
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.1)",
-            }}
-          />
-          <div style={{ fontFamily: MONO, fontSize: 16, color: "white" }}>
-            @oliverhenry
-          </div>
-        </div>
-        <div style={{ fontFamily: MONO, fontSize: 19, color: "rgba(255,255,255,0.8)", lineHeight: 1.5 }}>
-          how my OpenClaw agent, Larry, got millions of TikTok views in one week. within 5 days he crossed 500,000 views. one post hit 234,000.
-        </div>
-        <div style={{ marginTop: 16, fontFamily: MONO, fontSize: 14, color: BLUE }}>
-          x.com/i/article/2021875898064990208
-        </div>
+        <Img src={staticFile("tweet-oliver.png")} style={{ width: "100%", display: "block" }} />
 
         <div
           style={{
+            position: "absolute",
+            bottom: 16,
+            right: 16,
+            transform: `scale(${dotScale})`,
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-end",
-            marginTop: 20,
             gap: 8,
+            background: "rgba(10,10,10,0.9)",
+            padding: "8px 16px",
+            border: `1px solid ${GREEN}40`,
           }}
         >
-          <div
-            style={{
-              transform: `scale(${dotScale})`,
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-            }}
-          >
-            <PulsingDot color={GREEN} size={8} />
-            <span style={{ fontFamily: MONO, fontSize: 14, color: GREEN }}>
-              captured
-            </span>
-          </div>
+          <PulsingDot color={GREEN} size={8} />
+          <span style={{ fontFamily: MONO, fontSize: 14, color: GREEN }}>
+            captured
+          </span>
         </div>
       </div>
     </AbsoluteFill>
@@ -399,65 +380,81 @@ const SearchScene = () => {
     <AbsoluteFill
       style={{
         display: "flex",
-        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 24,
-        padding: "0 280px",
+        gap: 40,
+        padding: "0 100px",
       }}
     >
-      <div
-        style={{
-          width: "100%",
-          border: "1px solid rgba(255,255,255,0.2)",
-          padding: "16px 24px",
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-        }}
-      >
-        <span style={{ fontFamily: MONO, fontSize: 18, color: DIM }}>{"search:"}</span>
-        <TypewriterText text="agent ships code overnight" delay={5} speed={3} color="white" fontSize={22} />
+      {/* left: search + results */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 20 }}>
+        <div
+          style={{
+            width: "100%",
+            border: "1px solid rgba(255,255,255,0.2)",
+            padding: "16px 24px",
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          <span style={{ fontFamily: MONO, fontSize: 18, color: DIM }}>{"search:"}</span>
+          <TypewriterText text="agent ships code overnight" delay={5} speed={3} color="white" fontSize={22} />
+        </div>
+
+        <SlideIn delay={50} style={{ width: "100%" }}>
+          <div
+            style={{
+              width: "100%",
+              border: `1px solid ${GREEN}30`,
+              background: `${GREEN}05`,
+              padding: 24,
+              marginBottom: 12,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <PulsingDot color={GREEN} size={6} />
+              <span style={{ fontFamily: MONO, fontSize: 14, color: GREEN }}>0.96 match</span>
+              <span style={{ fontFamily: MONO, fontSize: 14, color: BLUE, marginLeft: 12 }}>implement</span>
+            </div>
+            <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.85)" }}>
+              @ryancarson: autonomous agent loop that learns, compounds knowledge, and ships prioritized tasks nightly
+            </div>
+          </div>
+        </SlideIn>
+
+        <SlideIn delay={65} style={{ width: "100%" }}>
+          <div
+            style={{
+              width: "100%",
+              border: `1px solid rgba(255,255,255,0.08)`,
+              background: `rgba(255,255,255,0.02)`,
+              padding: 24,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <PulsingDot color={DIM} size={6} />
+              <span style={{ fontFamily: MONO, fontSize: 14, color: DIM }}>0.82 match</span>
+              <span style={{ fontFamily: MONO, fontSize: 14, color: BLUE, marginLeft: 12 }}>implement</span>
+            </div>
+            <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.6)" }}>
+              @oliverhenry: OpenClaw agent got 500k+ TikTok views in 5 days with automated content creation
+            </div>
+          </div>
+        </SlideIn>
       </div>
 
-      <SlideIn delay={50} style={{ width: "100%" }}>
+      {/* right: tweet screenshot preview */}
+      <SlideIn delay={55} from="right">
         <div
           style={{
-            width: "100%",
-            border: `1px solid ${GREEN}30`,
-            background: `${GREEN}05`,
-            padding: 24,
-            marginBottom: 12,
+            width: 340,
+            border: "1px solid rgba(255,255,255,0.15)",
+            overflow: "hidden",
+            flexShrink: 0,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-            <PulsingDot color={GREEN} size={6} />
-            <span style={{ fontFamily: MONO, fontSize: 14, color: GREEN }}>0.96 match</span>
-            <span style={{ fontFamily: MONO, fontSize: 14, color: BLUE, marginLeft: 12 }}>implement</span>
-          </div>
-          <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.85)" }}>
-            @ryancarson: autonomous agent loop that learns, compounds knowledge, and ships prioritized tasks nightly
-          </div>
-        </div>
-      </SlideIn>
-
-      <SlideIn delay={65} style={{ width: "100%" }}>
-        <div
-          style={{
-            width: "100%",
-            border: `1px solid rgba(255,255,255,0.08)`,
-            background: `rgba(255,255,255,0.02)`,
-            padding: 24,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-            <PulsingDot color={DIM} size={6} />
-            <span style={{ fontFamily: MONO, fontSize: 14, color: DIM }}>0.82 match</span>
-            <span style={{ fontFamily: MONO, fontSize: 14, color: BLUE, marginLeft: 12 }}>implement</span>
-          </div>
-          <div style={{ fontFamily: MONO, fontSize: 17, color: "rgba(255,255,255,0.6)" }}>
-            @oliverhenry: OpenClaw agent got 500k+ TikTok views in 5 days with automated content creation
-          </div>
+          <Img src={staticFile("tweet-ryan.png")} style={{ width: "100%", display: "block" }} />
         </div>
       </SlideIn>
     </AbsoluteFill>

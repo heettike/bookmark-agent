@@ -233,6 +233,15 @@ a:hover {
   padding: 20px;
 }
 
+.extract-body--img {
+  padding: 0;
+}
+
+.extract-body--img img {
+  width: 100%;
+  display: block;
+}
+
 .extract-body .author {
   color: var(--blue);
   margin-bottom: 8px;
