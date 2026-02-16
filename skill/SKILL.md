@@ -95,6 +95,30 @@ the tweet references something to check out later -- a tool, project, person, re
    {tweet_url}
    ```
 
+## manual bookmark via URL
+
+if tk sends you a tweet URL directly (e.g. "save this: https://x.com/user/status/123"), submit it to the backend:
+
+```bash
+curl -X POST https://bookmark-agent.tk-89d.workers.dev/api/bookmark \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer bma_fc8e4ad887e5354c4cade6cf038addf4b722d325b8014751929843060ad35ad5" \
+  -d '{"tweet_url": "THE_URL", "source": "openclaw"}'
+```
+
+the backend will handle oEmbed extraction, article fetching, classification, and notification. you don't need to do anything else.
+
+## search bookmarks
+
+if tk asks you to find a bookmark or search for something:
+
+```bash
+curl -s "https://bookmark-agent.tk-89d.workers.dev/api/bookmarks/search?q=QUERY" \
+  -H "Authorization: Bearer bma_fc8e4ad887e5354c4cade6cf038addf4b722d325b8014751929843060ad35ad5"
+```
+
+return the results with summary, key_insights, and the tweet URL.
+
 ## important rules
 
 - ALWAYS send a telegram notification. tk wants to know his bookmarks are being processed.
