@@ -3,22 +3,20 @@
 (() => {
   const originalFetch = window.fetch;
 
-  window.fetch = async function (...args) {
-    const response = await originalFetch.apply(this, args);
-
+  window.fetch = function (...args) {
     try {
       const url = typeof args[0] === "string" ? args[0] : args[0]?.url;
+      // only intercept GraphQL bookmark calls - let everything else pass through untouched
       if (url && url.includes("/graphql/") && args[1]?.body) {
         const body = typeof args[1].body === "string" ? args[1].body : null;
         if (body && body.includes("CreateBookmark")) {
           console.log("[bookmark-agent] bookmark detected via fetch intercept");
-          // dispatch custom event so the content script can pick it up
           window.dispatchEvent(new CustomEvent("__bma_bookmark", { detail: { action: "create" } }));
         }
       }
     } catch {}
-
-    return response;
+    // always call original synchronously - no async wrapper
+    return originalFetch.apply(this, args);
   };
 
   // also intercept XHR
